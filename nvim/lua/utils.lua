@@ -1,6 +1,12 @@
 local M = {}
 local merge_tb = vim.tbl_deep_extend
 
+M.load_config = function()
+	local config = require("default_config")
+	config.mappings.disabled = nil
+	return config
+end
+
 M.load_mappings = function(section, mapping_opt)
 	vim.schedule(function()
 		local function set_section_map(section_values)
@@ -24,7 +30,7 @@ M.load_mappings = function(section, mapping_opt)
 			end
 		end
 
-		local mappings = require("core.utils").load_config().mappings
+		local mappings = require("utils").load_config().mappings
 
 		if type(section) == "string" then
 			mappings[section]["plugin"] = nil
@@ -47,8 +53,6 @@ M.lazy_load = function(plugin)
 			if condition then
 				vim.api.nvim_del_augroup_by_name("BeLazyOnFileOpen" .. plugin)
 
-				-- dont defer for treesitter as it will show slow highlighting
-				-- This deferring only happens only when we do "nvim filename"
 				if plugin ~= "nvim-treesitter" then
 					vim.schedule(function()
 						require("lazy").load({ plugins = plugin })

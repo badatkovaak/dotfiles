@@ -9,6 +9,10 @@ if not vim.loop.fs_stat(lazypath) then
 		lazypath,
 	})
 end
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
 vim.opt.rtp:prepend(lazypath)
 local utils = require("utils")
 
@@ -55,10 +59,23 @@ local my_plugins = {
 		-- end,
 	},
 	{
+		"nvim-tree/nvim-tree.lua",
+		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+		init = function()
+			utils.load_mappings("nvimtree")
+		end,
+		opts = function()
+			return require("configs").nvimtree
+		end,
+		config = function(_, opts)
+			require("nvim-tree").setup(opts)
+		end,
+	},
+	{
 		"neovim/nvim-lspconfig",
-		init = function ()
+		init = function()
 			utils.lazy_load("nvim-lspconfig")
-		end
+		end,
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
@@ -86,6 +103,16 @@ local my_plugins = {
 	},
 	{
 		"numToStr/Comment.nvim",
+		lazy = true,
+		keys = {
+			{ "gcc", mode = "n" },
+			{ "gc", mode = "v" },
+			{ "gbc", mode = "n" },
+			{ "gb", mode = "v" },
+		},
+		init = function()
+			utils.load_mappings("comment")
+		end,
 		config = function()
 			require("Comment").setup()
 		end,
@@ -97,10 +124,8 @@ local my_plugins = {
 			require("rust-tools").setup({
 				server = {
 					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions,
-							{ buffer = bufnr })
-						vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group,
-							{ buffer = bufnr })
+						vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+						vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
 					end,
 				},
 			})
@@ -157,8 +182,7 @@ local my_plugins = {
 			local function has_words_before()
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-				    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ==
-				    nil
+					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
 			return {
@@ -222,9 +246,9 @@ local my_plugins = {
 				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", priority = 1000 },
-					{ name = "luasnip",  priority = 750 },
-					{ name = "buffer",   priority = 500 },
-					{ name = "path",     priority = 250 },
+					{ name = "luasnip", priority = 750 },
+					{ name = "buffer", priority = 500 },
+					{ name = "path", priority = 250 },
 				}),
 			}
 		end,
@@ -237,7 +261,7 @@ local my_plugins = {
 			return require("configs").telescope_config
 		end,
 		config = function(_, opts)
-			local telescope = require "telescope"
+			local telescope = require("telescope")
 			telescope.setup(opts)
 		end,
 	},
