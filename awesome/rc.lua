@@ -50,7 +50,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/badatkovaak/.config/awesome/themes/badatkovaak/theme.lua")
-
+--beautiful.useless_gap = 5
 -- This is used later as the default terminal and editor to run.
 terminal = "konsole"
 editor = "vim"
@@ -66,9 +66,9 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
 --    awful.layout.suit.floating,
---    awful.layout.suit.max.fullscreen,
     awful.layout.suit.max,
     awful.layout.suit.tile,
+--    awful.layout.suit.max.fullscreen,
 --    awful.layout.suit.tile.left,
 --    awful.layout.suit.tile.bottom,
 --    awful.layout.suit.tile.top,
@@ -234,8 +234,8 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 end)
-padd = 5
-awful.screen.focused().padding = { top = padd,bottom = padd,left = padd,right = padd}
+--padd = 5
+--awful.screen.focused().padding = { top = padd,bottom = padd,left = padd,right = padd}
 -- }}}
 
 -- {{{ Mouse bindings
