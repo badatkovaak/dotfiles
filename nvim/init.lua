@@ -5,24 +5,21 @@ if not vim.loop.fs_stat(lazypath) then
 		"clone",
 		"--filter=blob:none",
 		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
+		"--branch=stable",
 		lazypath,
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+local utils = require("utils")
 
 local my_plugins = {
 
 	{
 		"williamboman/mason.nvim",
+		lazy = true,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		-- config = function()
-		-- 	require("mason-lspconfig").setup({
-		-- 		ensure_installed = { "lua_ls", "rust_analyzer", "ruff_lsp", "html", "tsserver" },
-		-- 	})
-		-- end,
 	},
 	{
 		"goolord/alpha-nvim",
@@ -39,7 +36,10 @@ local my_plugins = {
 	-- },
 	{
 		"lukas-reineke/indent-blankline.nvim",
-
+		lazy = true,
+		init = function()
+			utils.lazy_load("indent-blankline.nvim")
+		end,
 		opts = function()
 			return require("configs").blankline
 		end,
@@ -56,22 +56,28 @@ local my_plugins = {
 	},
 	{
 		"neovim/nvim-lspconfig",
-		-- enabled = false,
-		-- config = function()
-		-- 	require("configs").lspconfig()
-		-- end,
-		-- config = require ("plugins.configs.lspconfig").lspconfig,
+		init = function ()
+			utils.lazy_load("nvim-lspconfig")
+		end
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
-		enabled = false,
-		config = function()
-			require("colorizer").setup()
+		-- enabled = false,
+		lazy = true,
+		init = function()
+			utils.lazy_load("nvim-colorizer.lua")
+		end,
+		config = function(_, opts)
+			require("colorizer").setup(opts)
+			vim.defer_fn(function()
+				require("colorizer").attach_to_buffer(0)
+			end, 0)
 		end,
 	},
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		lazy = true,
 		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
@@ -91,35 +97,55 @@ local my_plugins = {
 			require("rust-tools").setup({
 				server = {
 					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-						vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+						vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions,
+							{ buffer = bufnr })
+						vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group,
+							{ buffer = bufnr })
 					end,
 				},
 			})
 		end,
 	},
 	{
-		"L3MON4D3/LuaSnip",
-		dependencies = "rafamadriz/friendly-snippets",
-		opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-		config = function(_, opts)
-			require("configs").luasnip(opts)
-		end,
-	},
-	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-buffer",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-nvim-lsp",
+			{
+				"L3MON4D3/LuaSnip",
+				dependencies = "rafamadriz/friendly-snippets",
+				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
+				config = function(_, opts)
+					require("configs").luasnip(opts)
+				end,
+			},
+
+			{
+				"windwp/nvim-autopairs",
+				opts = {
+					fast_wrap = {},
+					disable_filetype = { "TelescopePrompt", "vim" },
+				},
+				config = function(_, opts)
+					require("nvim-autopairs").setup(opts)
+
+					-- setup cmp for autopairs
+					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+				end,
+			},
+
+			{
+				"saadparwaiz1/cmp_luasnip",
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-path",
+				"hrsh7th/cmp-nvim-lsp",
+			},
 		},
 		event = "InsertEnter",
+		lazy = true,
 		opts = function()
 			local cmp = require("cmp")
 			local snip_status_ok, luasnip = pcall(require, "luasnip")
-			local lspkind_status_ok, lspkind = pcall(require, "lspkind")
-			-- local utils = require("astronvim.utils")
+			-- local lspkind_status_ok, lspkind = pcall(require, "lspkind")
 			if not snip_status_ok then
 				return
 			end
@@ -131,7 +157,8 @@ local my_plugins = {
 			local function has_words_before()
 				local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 				return col ~= 0
-					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+				    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") ==
+				    nil
 			end
 
 			return {
@@ -195,32 +222,31 @@ local my_plugins = {
 				},
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp", priority = 1000 },
-					{ name = "luasnip", priority = 750 },
-					{ name = "buffer", priority = 500 },
-					{ name = "path", priority = 250 },
+					{ name = "luasnip",  priority = 750 },
+					{ name = "buffer",   priority = 500 },
+					{ name = "path",     priority = 250 },
 				}),
 			}
 		end,
 	},
 	{
-		"windwp/nvim-autopairs",
-		opts = {
-			fast_wrap = {},
-			disable_filetype = { "TelescopePrompt", "vim" },
-		},
+		"nvim-telescope/telescope.nvim",
+		cmd = "Telescope",
+		lazy = true,
+		opts = function()
+			return require("configs").telescope_config
+		end,
 		config = function(_, opts)
-			require("nvim-autopairs").setup(opts)
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			local telescope = require "telescope"
+			telescope.setup(opts)
 		end,
 	},
 	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.1",
-		dependencies = { "nvim-lua/plenary.nvim" },
-	},
-	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = true,
+		init = function()
+			utils.lazy_load("nvim-treesitter")
+		end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = { "lua", "rust", "toml", "python", "html" },
@@ -240,6 +266,7 @@ local my_plugins = {
 	},
 	{
 		"windwp/nvim-ts-autotag",
+
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
@@ -248,6 +275,7 @@ local my_plugins = {
 		"akinsho/toggleterm.nvim",
 		version = "*",
 		cmd = { "ToggleTerm", "TermExec" },
+		lazy = true,
 		opts = {
 			size = 10,
 			on_create = function()
@@ -269,6 +297,7 @@ local my_plugins = {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
+		enable = false,
 		config = function()
 			require("catppuccin").setup({ integrations = {} })
 		end,
@@ -284,15 +313,16 @@ local my_plugins = {
 	},
 	{
 		"morhetz/gruvbox",
+		enabled = false,
 		lazy = false,
 	},
-	{
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("project_nvim").setup({})
-			require("telescope").load_extension("projects")
-		end,
-	},
+	--{
+	--	"ahmedkhalf/project.nvim",
+	--	config = function()
+	--		require("project_nvim").setup({})
+	--		require("telescope").load_extension("projects")
+	--	end,
+	--},
 	{
 		"RRethy/vim-illuminate",
 		config = function()
@@ -328,7 +358,16 @@ local my_plugins = {
 	},
 }
 
-local my_opts = {}
+local my_opts = {
+	ui = {
+		icons = {
+			ft = "",
+			lazy = "󰂠 ",
+			loaded = "",
+			not_loaded = "",
+		},
+	},
+}
 
 require("lazy").setup(my_plugins, my_opts)
 
