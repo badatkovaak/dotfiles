@@ -1,5 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
+
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
@@ -119,6 +120,12 @@
   	vim
 	neovim
 	git
+	htop
+	neofetch
+	docker
+	docker-compose
+	wget
+	appimage-run
 	ripgrep
 	fish
 	awesome
@@ -127,13 +134,51 @@
 	compton
 	alacritty
 	kitty
+	telegram-desktop
 	unzip
 	gcc
 	gnumake
-	tmux
+	#tmux
 	nodejs
-	(python311.withPackages(ps: with ps; [ python-lsp-server pylint autopep8 ]))
+	bun
+	deno
+	haxe
+	ghc
+	cargo
+	rustc
+	wasmer
+	elixir
+	elixir-ls
+	dotnet-sdk
+	julia-bin
+	elmPackages.elm
+	elmPackages.elm-language-server
+	#(elmPackages. [ elm-live elm-spa elm-test elm-pages elm-format elm-language-server ] 
+	stylish-haskell
+	haskell-language-server
+	#poetry
+	(python311.withPackages(ps: with ps; [
+		python-lsp-server 
+		pylint 
+		autopep8 
+		pytelegrambotapi 
+		requests 
+		django
+		#(buildPythonPackage rec {
+		#	pname = "berserk";
+		#	version = "0.12.6";
+		#	format = "pyproject";
+		#	src = fetchPypi {
+		#		inherit pname version;
+		#		sha256 = "d35b5ee1239b135a401d705e2a37681f693bcb05c340d2320b0a1811ab3f8c1d";};
+		#	doCheck = false;
+		#	propagatedBuildInputs = [];
+		#	})
+	]))
+	#(python311.withPackages(ps: with ps; [ python-lsp-server pylint autopep8 pytelegrambotapi requests django ]))
 	pypy3
+	stylua
+	lua-language-server
 	gmp
 	ncurses
 	qutebrowser
@@ -148,6 +193,7 @@
     #userName  = "badatkovaak";
     #userEmail = "122653634+badatkovaak@users.noreply.github.com";
   };
+  virtualisation.docker.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
