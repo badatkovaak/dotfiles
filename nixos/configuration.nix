@@ -146,7 +146,8 @@
         bun
         deno
         haxe
-         # neko
+        steam-run
+        # neko
         ghc
         cargo
         rustc
@@ -174,6 +175,7 @@
         pypy3
         stylua
         lua-language-server
+        love
         gmp
         ncurses
         qutebrowser
