@@ -1,9 +1,20 @@
 import os
 
 os.system("mkdir ~/pr && mkdir ~/pr/langs && mkdir ~/pr/code")
-software_list = ["git", "vim", "neofetch", "flatpak", "fish", "htop"]
+software_list = [
+    "git",
+    "vim",
+    "neofetch",
+    "flatpak",
+    "fish",
+    "btop",
+    "python3-autopep8",
+    "python3-pylsp",
+    "pylint",
+    "nix",
+    "htop"]
 for i in software_list:
-    os.system(f"sudo apt install {i} -y")
+    os.system(f"sudo nala install {' '.join(software_list)} -y")
 os.system("flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo")
 a = input(
     """choose what you want to install:
@@ -14,6 +25,8 @@ v - vscode
 """)
 if a.count("q") == 1:
     os.system("flatpak install flathub org.qutebrowser.qutebrowser")
+
+
 if a.count("d") == 1:
     os.system("flatpak install flathub com.discordapp.Discord")
 if a.count("c") == 1:

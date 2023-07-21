@@ -60,7 +60,7 @@ local function run_once(cmd_arr)
 	end
 end
 
-run_once({ "urxvtd", "unclutter -root" }) -- comma-separated entries
+run_once({ "unclutter -root" }) -- comma-separated entries
 
 -- This function implements the XDG autostart specification
 --[[
@@ -102,7 +102,7 @@ local editor = "nvim"
 local browser = "qutebrowser"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }
 awful.layout.layouts = {
 	-- awful.layout.suit.floating,
 	awful.layout.suit.max,
@@ -253,6 +253,7 @@ screen.connect_signal("property::geometry", function(s)
 		end
 		gears.wallpaper.maximized(wallpaper, s, true)
 	end
+	awful.spawn.with_shell("nitrogen --restore")
 end)
 
 -- No borders when rearranging only 1 non-floating or maximized client
@@ -575,7 +576,7 @@ globalkeys = mytable.join(
 	-- alternatively use rofi, a dmenu-like application with more features
 	-- check https://github.com/DaveDavenport/rofi for more details
 	-- rofi
-	awful.key({ modkey }, "x", function()
+	awful.key({ modkey }, "d", function()
 		-- os.execute(string.format("rofi -show %s -theme %s", "run", "dmenu"))
 		os.execute(string.format("rofi -show %s", "run"))
 	end, { description = "show rofi", group = "launcher" }),
@@ -759,7 +760,7 @@ awful.rules.rules = {
 	},
 
 	-- Add titlebars to normal clients and dialogs
-	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
+	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = false } },
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	-- { rule = { class = "Firefox" },
@@ -858,4 +859,5 @@ client.connect_signal("unmanage", backham)
 -- ensure there is always a selected client during tag switching or logins
 tag.connect_signal("property::selected", backham)
 
+awful.spawn.with_shell("nitrogen --restore")
 -- }}}
