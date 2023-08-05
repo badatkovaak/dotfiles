@@ -6,7 +6,7 @@ vim.cmd("set expandtab")
 vim.cmd("set softtabstop=4")
 vim.o.relativenumber = true
 vim.diagnostic.config({ signs = false })
--- local autocmd = vim.api.nvim_create_autocmd
+vim.opt.clipboard = nil
 
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {

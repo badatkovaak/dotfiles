@@ -3,8 +3,22 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 
 local lspconfig = require("lspconfig")
 
-local servers =
-	{ "html", "cssls", "tsserver", "clangd", "pylsp", "haxe_language_server", "hls", "purescriptls", "gopls" }
+local servers = {
+	"html",
+	"cssls",
+	"tsserver",
+	"clangd",
+	"pylsp",
+	"haxe_language_server",
+	"hls",
+	"purescriptls",
+	"gopls",
+	"ols",
+	"zls",
+	"ocamllsp",
+	"svelte",
+	-- "idris2_lsp",
+}
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
@@ -13,5 +27,4 @@ for _, lsp in ipairs(servers) do
 	})
 end
 
---
 -- lspconfig.pyright.setup { blabla}

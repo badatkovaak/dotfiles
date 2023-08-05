@@ -20,6 +20,7 @@ local sources = {
 	b.formatting.autopep8,
 	b.diagnostics.pylint,
 	b.formatting.gofmt,
+	b.formatting.ocamlformat,
 }
 
 local lsp_formatting = function(bufnr)
@@ -30,6 +31,7 @@ local lsp_formatting = function(bufnr)
 				lemminx = true,
 				lua_ls = true,
 				pylsp = true,
+				hls = true,
 			}
 			if lsp_formatting_denylist[client.name] then
 				return false

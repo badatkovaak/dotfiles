@@ -37,8 +37,6 @@ local plugins = {
 		"nvim-tree/nvim-tree.lua",
 		opts = overrides.nvimtree,
 	},
-
-	-- Install a plugin
 	{
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
@@ -51,6 +49,57 @@ local plugins = {
 		lazy = false,
 		config = function()
 			require("nvim-ts-autotag").setup()
+		end,
+	},
+	{
+		"nvim-telescope/telescope.nvim",
+		opts = overrides.telescope,
+	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+		config = function()
+			require("telescope").load_extension("fzf")
+		end,
+	},
+	{
+		"ThePrimeagen/harpoon",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		config = function()
+			require("harpoon").setup({
+				menu = {
+					width = vim.api.nvim_win_get_width(0) - 4,
+					height = vim.api.nvim_win_get_height(0) - 4,
+				},
+			})
+			require("telescope").load_extension("harpoon")
+		end,
+	},
+	{
+		"ggandor/leap.nvim",
+		dependencies = {
+			"tpope/vim-repeat",
+		},
+		lazy = false,
+		config = function()
+			require("leap").add_default_mappings(true)
+		end,
+	},
+	{
+		"ShinKage/idris2-nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+		},
+		ft = "idris2",
+		config = function()
+			require("idris2").setup({
+				server = {
+					on_attach = require("plugins.configs.lspconfig").on_attach,
+					-- capabilities = require("plugins.configs.lspconfig").capabilities,
+				},
+			})
 		end,
 	},
 	-- {
