@@ -13,7 +13,7 @@ M.ui = {
 	-- nvdash = {
 	-- 	load_on_startup = true,
 	-- },
-	transparency = true,
+	-- transparency = true,
 }
 
 M.plugins = "custom.plugins"

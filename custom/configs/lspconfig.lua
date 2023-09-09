@@ -17,6 +17,9 @@ local servers = {
 	"zls",
 	"ocamllsp",
 	"svelte",
+	"clojure_lsp",
+	"rust_analyzer",
+	-- "dartls",
 	-- "idris2_lsp",
 }
 

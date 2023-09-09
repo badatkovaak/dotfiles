@@ -17,6 +17,7 @@ M.treesitter = {
 		"ocaml",
 		"zig",
 		"svelte",
+		"dart",
 		-- "idris",
 		-- "haxe",
 	},
