@@ -8,15 +8,19 @@ local b = null_ls.builtins
 
 local sources = {
 
-	b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-	b.formatting.prettier.with({ filetypes = { "html", "markdown", "css" } }), -- so prettier works only on these filetypes
+	b.formatting.deno_fmt,
+	b.formatting.prettier.with({ filetypes = { "html", "markdown", "css" } }),
 
 	b.formatting.stylua,
 	b.formatting.rustfmt,
 	b.formatting.haxe_formatter,
 	b.formatting.stylish_haskell,
 
-	b.formatting.clang_format,
+	b.formatting.clang_format.with({
+		extra_args = function(_)
+			return { "--style=Microsoft" }
+		end,
+	}),
 	b.formatting.autopep8,
 	b.diagnostics.pylint,
 	b.formatting.gofmt,
@@ -31,7 +35,7 @@ local lsp_formatting = function(bufnr)
 				lemminx = true,
 				lua_ls = true,
 				pylsp = true,
-				hls = true,
+				-- hls = true,
 			}
 			if lsp_formatting_denylist[client.name] then
 				return false

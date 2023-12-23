@@ -21,6 +21,14 @@ local plugins = {
 			require("custom.configs.lspconfig")
 		end, -- Override to setup mason-lspconfig
 	},
+	-- {
+	-- 	"manicmaniac/coconut.vim",
+	-- 	-- ft = "coco",
+	-- 	lazy = false,
+	-- 	config = function()
+	-- 		require("coconut").setup()
+	-- 	end,
+	-- },
 
 	-- override plugin configs
 	{
@@ -46,7 +54,7 @@ local plugins = {
 	},
 	{
 		"windwp/nvim-ts-autotag",
-        event = "InsertEnter",
+		event = "InsertEnter",
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
