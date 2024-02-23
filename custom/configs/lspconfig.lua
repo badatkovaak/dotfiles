@@ -20,6 +20,7 @@ local servers = {
 	"clojure_lsp",
 	"rust_analyzer",
 	"metals",
+	"tailwindcss",
 	-- "dartls",
 	-- "idris2_lsp",
 }

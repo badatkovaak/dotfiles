@@ -9,7 +9,10 @@ local b = null_ls.builtins
 local sources = {
 
 	b.formatting.deno_fmt,
-	b.formatting.prettier.with({ filetypes = { "html", "markdown", "css" } }),
+	b.formatting.prettier.with({
+		filetypes = { "html", "markdown", "css" },
+		extra_args = { "--tab-width", 4, "--bracket-same-line", true },
+	}),
 
 	b.formatting.stylua,
 	b.formatting.rustfmt,
@@ -27,6 +30,8 @@ local sources = {
 	b.formatting.gofmt,
 	b.formatting.ocamlformat,
 }
+
+require("nvim-ts-autotag").setup()
 
 local lsp_formatting = function(bufnr)
 	vim.lsp.buf.format({
