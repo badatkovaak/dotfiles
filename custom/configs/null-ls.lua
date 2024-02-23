@@ -15,10 +15,11 @@ local sources = {
 	b.formatting.rustfmt,
 	b.formatting.haxe_formatter,
 	b.formatting.stylish_haskell,
+	b.formatting.scalafmt,
 
 	b.formatting.clang_format.with({
 		extra_args = function(_)
-			return { "--style=Microsoft" }
+			return { "--style={BasedOnStyle : Google, IndentWidth: 4}" }
 		end,
 	}),
 	b.formatting.autopep8,

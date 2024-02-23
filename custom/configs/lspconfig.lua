@@ -19,6 +19,7 @@ local servers = {
 	"svelte",
 	"clojure_lsp",
 	"rust_analyzer",
+	"metals",
 	-- "dartls",
 	-- "idris2_lsp",
 }
