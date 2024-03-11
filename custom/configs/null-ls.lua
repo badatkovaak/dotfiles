@@ -22,11 +22,11 @@ local sources = {
 
 	b.formatting.clang_format.with({
 		extra_args = function(_)
-			return { "--style={BasedOnStyle : Google, IndentWidth: 4}" }
+			return { "--style={BasedOnStyle : Google, IndentWidth : 4}" }
 		end,
 	}),
 	b.formatting.autopep8,
-	b.diagnostics.pylint,
+	-- b.diagnostics.pylint,
 	b.formatting.gofmt,
 	b.formatting.ocamlformat,
 }

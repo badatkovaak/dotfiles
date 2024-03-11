@@ -21,6 +21,7 @@ local servers = {
 	"rust_analyzer",
 	"metals",
 	"tailwindcss",
+	-- "texlab",
 	-- "dartls",
 	-- "idris2_lsp",
 }
@@ -31,5 +32,11 @@ for _, lsp in ipairs(servers) do
 		capabilities = capabilities,
 	})
 end
+
+lspconfig["texlab"].setup({
+	on_attach = on_attach,
+	capabilities = capabilities,
+	settings = { texlab = { build = { onSave = true } } },
+})
 
 -- lspconfig.pyright.setup { blabla}
