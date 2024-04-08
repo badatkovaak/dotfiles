@@ -8,9 +8,11 @@ local b = null_ls.builtins
 
 local sources = {
 
-	b.formatting.deno_fmt,
+	b.formatting.deno_fmt.with({
+		filetypes = { "js", "jsx", "ts", "tsx" },
+	}),
 	b.formatting.prettier.with({
-		filetypes = { "html", "markdown", "css" },
+		filetypes = { "html", "css" },
 		extra_args = { "--tab-width", 4, "--bracket-same-line", true },
 	}),
 
