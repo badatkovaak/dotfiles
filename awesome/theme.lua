@@ -2,7 +2,7 @@
 -- Default awesome theme --
 ---------------------------
 local gears = require("gears")
-local lain = require("lain")
+-- local lain = require("lain")
 local awful = require("awful")
 local wibox = require("wibox")
 local theme_assets = require("beautiful.theme_assets")
@@ -14,7 +14,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font = "ubuntuNerdFont 11"
+theme.font = "ubuntuNerdFont 12"
 
 theme.bg_normal = "#222222"
 theme.bg_focus = "#535d6c"
@@ -27,10 +27,10 @@ theme.fg_focus = "#ffffff"
 theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
-theme.useless_gap = 5
+theme.useless_gap = 3
 theme.border_width = dpi(0)
 theme.border_normal = "#000000"
-theme.border_focus = "#535d6c"
+theme.border_focus = "#2478ff"
 theme.border_marked = "#91231c"
 
 local taglist_square_size = dpi(4)
@@ -66,7 +66,8 @@ theme.titlebar_maximized_button_focus_inactive = themes_path .. "default/titleba
 theme.titlebar_maximized_button_normal_active = themes_path .. "default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active = themes_path .. "default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = themes_path .. "default/background.png"
+-- theme.wallpaper = themes_path .. "default/background.png"
+theme.wallpaper = "/usr/share/wallpapers/SafeLanding/contents/images/5120x2880.jpg"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path .. "default/layouts/fairhw.png"
@@ -154,7 +155,7 @@ function theme.at_screen_connect(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+	awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
