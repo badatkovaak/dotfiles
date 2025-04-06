@@ -6,7 +6,7 @@ local map = vim.keymap.set
 local del = vim.keymap.del
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+-- map("i", "jk", "<ESC>")
 
 del("n", "<leader>h")
 del("n", "<leader>v")

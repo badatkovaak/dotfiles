@@ -51,7 +51,9 @@ return {
         "windwp/nvim-ts-autotag",
         event = "InsertEnter",
         config = function()
-            require("nvim-ts-autotag").setup()
+            require("nvim-ts-autotag").setup {
+                opts = { enable_close_on_slash = true },
+            }
         end,
     },
     {
@@ -115,6 +117,11 @@ return {
         config = function()
             require("flutter-tools").setup {}
         end,
+    },
+    {
+        "Hoffs/omnisharp-extended-lsp.nvim",
+        lazy = true,
+        ft = "cs",
     },
     -- {
     --   "kevinhwang91/nvim-ufo",

@@ -71,7 +71,7 @@ MODKEY = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-	--    awful.layout.suit.floating,
+	-- awful.layout.suit.floating,
 	awful.layout.suit.max,
 	awful.layout.suit.tile,
 	--    awful.layout.suit.max.fullscreen,
@@ -361,6 +361,15 @@ globalkeys = gears.table.join(
 	awful.key({ MODKEY, "Shift" }, "t", function()
 		awful.util.spawn("chromium")
 	end, { description = "open browser", group = "launcher" }),
+	awful.key({ MODKEY, "Shift" }, "n", function()
+		awful.util.spawn("warpd --normal")
+	end, { description = "warpd normal mode" }),
+	awful.key({ MODKEY, "Shift" }, "g", function()
+		awful.util.spawn("warpd --grid")
+	end, { description = "warpd grid mode" }),
+	awful.key({ MODKEY, "Shift" }, "b", function()
+		awful.util.spawn("warpd --hint")
+	end, { description = "warpd hint mode" }),
 	awful.key({ MODKEY, "Shift" }, "x", function()
 		awful.util.spawn("archlinux-logout")
 	end, { description = "open logout", group = "launcher" })
@@ -607,3 +616,4 @@ end)
 -- awful.spawn.with_shell("spoofdpi")
 awful.spawn.with_shell("picom")
 awful.spawn.with_shell("compton --daemon")
+awful.spawn.with_shell('xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Scroll Method Enabled" 0 1 0')
