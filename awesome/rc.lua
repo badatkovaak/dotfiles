@@ -372,7 +372,13 @@ globalkeys = gears.table.join(
 	end, { description = "warpd hint mode" }),
 	awful.key({ MODKEY, "Shift" }, "x", function()
 		awful.util.spawn("archlinux-logout")
-	end, { description = "open logout", group = "launcher" })
+	end, { description = "open logout", group = "launcher" }),
+	awful.key({ MODKEY, "Mod1" }, "1", function()
+		awful.util.spawn("setxkbmap us")
+	end, { description = "change keyboard layout", group = "launcher" }),
+	awful.key({ MODKEY, "Mod1" }, "2", function()
+		awful.util.spawn("setxkbmap ru")
+	end, { description = "change keyboard layout", group = "launcher" })
 )
 
 clientkeys = gears.table.join(
@@ -534,7 +540,7 @@ awful.rules.rules = {
 	-- Add titlebars to normal clients and dialogs
 	{
 		rule_any = { type = { "normal", "dialog" } },
-		properties = { titlebars_enabled = fasle, size_hints_honor = false },
+		properties = { titlebars_enabled = false, size_hints_honor = false },
 	},
 	--    { rule_any = {instance = "qutebrowser" }
 	--      , properties = {screen = "1",  tag = "1" }
