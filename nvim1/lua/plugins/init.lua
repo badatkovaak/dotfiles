@@ -118,11 +118,11 @@ return {
             require("flutter-tools").setup {}
         end,
     },
-    {
-        "Hoffs/omnisharp-extended-lsp.nvim",
-        lazy = true,
-        ft = "cs",
-    },
+    -- {
+    --     "Hoffs/omnisharp-extended-lsp.nvim",
+    --     lazy = true,
+    --     -- ft = "cs",
+    -- },
     -- {
     --   "kevinhwang91/nvim-ufo",
     --   lazy = false,

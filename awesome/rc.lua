@@ -194,7 +194,7 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
+	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -363,13 +363,22 @@ globalkeys = gears.table.join(
 	end, { description = "open browser", group = "launcher" }),
 	awful.key({ MODKEY, "Shift" }, "n", function()
 		awful.util.spawn("warpd --normal")
-	end, { description = "warpd normal mode" }),
+	end, { description = "warpd normal mode", group = "warpd" }),
 	awful.key({ MODKEY, "Shift" }, "g", function()
 		awful.util.spawn("warpd --grid")
-	end, { description = "warpd grid mode" }),
+	end, { description = "warpd grid mode", group = "warpd" }),
 	awful.key({ MODKEY, "Shift" }, "b", function()
 		awful.util.spawn("warpd --hint")
-	end, { description = "warpd hint mode" }),
+	end, { description = "warpd hint mode", group = "warpd" }),
+	awful.key({ MODKEY, "Shift" }, "y", function()
+		awful.util.spawn("fish -c 'maim ~/screenshots/screen_$(date +%d-%m-%Y-%T).png'")
+	end, { description = "screenshot desktop", group = "screenshot" }),
+	awful.key({ MODKEY, "Shift" }, "u", function()
+		awful.util.spawn("fish -c 'maim -s ~/screenshots/screen_$(date +%d-%m-%Y-%T).png'")
+	end, { description = "screenshot selection", group = "screenshot" }),
+	awful.key({ MODKEY, "Shift" }, "i", function()
+		awful.util.spawn("fish -c 'maim -i $(xdotool getactivewindow) ~/screenshots/screen_$(date +%d-%m-%Y-%T).png'")
+	end, { description = "screenshot active window", group = "screenshot" }),
 	awful.key({ MODKEY, "Shift" }, "x", function()
 		awful.util.spawn("archlinux-logout")
 	end, { description = "open logout", group = "launcher" }),

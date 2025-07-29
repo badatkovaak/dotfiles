@@ -29,6 +29,9 @@ local options = {
         xmlformatter = {
             prepend_args = { "--indent", "4", "--selfclose" },
         },
+        deno_fmt = {
+            append_args = { "--indent-width", "4" },
+        },
     },
 }
 
