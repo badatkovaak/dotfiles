@@ -27,6 +27,8 @@ local servers = {
     -- "omnisharp",
 
     "texlab",
+    -- "kotlin_language_server",
+    "kotlin_lsp",
     -- "dartls",
     -- "idris2_lsp",
 }

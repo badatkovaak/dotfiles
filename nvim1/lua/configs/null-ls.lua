@@ -7,11 +7,12 @@ end
 local b = null_ls.builtins
 
 local sources = {
-    b.diagnostics.mypy,
+    -- b.diagnostics.mypy,
 
-    -- b.formatting.deno_fmt.with({
-    -- 	filetypes = { "js", "jsx", "ts", "tsx" },
-    -- }),
+    -- b.formatting.deno_fmt.with {
+    --     filetypes = { "js", "jsx", "ts", "tsx" },
+    -- },
+
     -- b.formatting.prettier.with({
     -- 	filetypes = { "html", "css" },
     -- 	extra_args = { "--tab-width", 4, "--bracket-same-line", true },
@@ -32,6 +33,7 @@ local sources = {
     -- -- b.diagnostics.pylint,
     -- b.formatting.gofmt,
     -- b.formatting.ocamlformat,
+    -- b.formatting.ktlint,
 }
 
 require("nvim-ts-autotag").setup()
