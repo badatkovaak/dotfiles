@@ -2,8 +2,8 @@ require("nvchad.configs.lspconfig").defaults()
 
 local servers = {
     "html",
-    "cssls",
-    "ts_ls",
+    -- "cssls",
+    -- "ts_ls",
     "clangd",
     -- "basedpyright",
     -- "pylsp",
@@ -23,6 +23,7 @@ local servers = {
     "asm_lsp",
     -- "phpactor",
     "phpantom",
+    "twiggy-language-server",
     -- "omnisharp",
 
     -- "texlab",
