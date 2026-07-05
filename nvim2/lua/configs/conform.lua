@@ -15,12 +15,13 @@ local options = {
         asm = { "asmfmt" },
         kotlin = { "ktlint" },
         php = { "pretty-php" },
+        twig = { "djlint" },
         ["_"] = { "trim_whitespace" },
     },
 
     format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 2000,
+        timeout_ms = 5000,
         lsp_fallback = false,
     },
 
@@ -37,6 +38,11 @@ local options = {
         ktfmt = {
             prepend_args = { "--kotlinlang-style" },
         },
+        djlint = {
+            command = "djlint",
+            prepend_args = { "--extension=html.twig", "--reformat", "$FILENAME" },
+        },
+
         -- ktlint = {
         --     append_args = { "-- },
         -- },

@@ -21,8 +21,8 @@ local servers = {
     -- "tailwindcss",
     "csharp_ls",
     "asm_lsp",
-    -- "phpactor",
-    "phpantom",
+    "phpactor",
+    -- "phpantom",
     "twiggy-language-server",
     -- "omnisharp",
 
@@ -31,6 +31,17 @@ local servers = {
     -- "kotlin_lsp",
     -- "dartls",
     -- "idris2_lsp",
+}
+
+vim.lsp.config["phpactor"] = {
+    cmd = { "phpactor", "language-server" },
+    filetypes = { "php" },
+    root_markers = { ".git", "composer.json", ".phpactor.json", ".phpactor.yml" },
+    workspace_required = true,
+    init_options = {
+        ["language_server_phpstan.enabled"] = false,
+        ["language_server_psalm.enabled"] = false,
+    },
 }
 
 vim.lsp.config["phpantom"] = {
